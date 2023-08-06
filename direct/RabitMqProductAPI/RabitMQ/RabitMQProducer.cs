@@ -20,15 +20,12 @@ namespace RabitMqProductAPI.RabitMQ
             //Here we create channel with session and model
             using var channel = connection.CreateModel();
 
-            //declare the queue after mentioning name and a few property related to that
-            //channel.QueueDeclare("product", exclusive: false);
-            channel.ExchangeDeclare("newfan", "fanout",durable:true);
+            channel.QueueDeclare("product", exclusive: false);
             //Serialize the message
             var json = JsonConvert.SerializeObject(message);
-            var body  = Encoding.UTF8.GetBytes(json);
-
+            var body = Encoding.UTF8.GetBytes(json);
             //put the data on to the product queue
-            channel.BasicPublish(exchange: "newfan", routingKey: "", body: body);
+            channel.BasicPublish(exchange: "", routingKey: "product", body: body);
         }
     }
 }

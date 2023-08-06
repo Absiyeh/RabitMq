@@ -19,15 +19,7 @@ using var channel = connection.CreateModel();
 
 
 
-
-
-
-
-
-
-
-channel.QueueDeclare("product");
-channel.QueueBind("", "newfan", "");
+channel.QueueDeclare("product",exclusive:false);
 //Set Event object which listen message from chanel which is sent by producer
 var consumer = new EventingBasicConsumer(channel);
 consumer.Received += (model, eventArgs) =>
@@ -39,6 +31,6 @@ consumer.Received += (model, eventArgs) =>
 };
 
 //read the message
-channel.BasicConsume(queue: "", autoAck: true, consumer: consumer);
+channel.BasicConsume(queue: "product", autoAck: true, consumer: consumer);
 
 Console.ReadKey();
