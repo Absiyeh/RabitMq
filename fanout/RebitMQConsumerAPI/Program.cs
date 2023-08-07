@@ -29,11 +29,11 @@ namespace RebitMQConsumerAPI
 
             using var channel = connection.CreateModel();
 
-            channel.QueueDeclare("", exclusive: false);
+            channel.QueueDeclare("ApiQueue", exclusive: false);
             /// fanout exchange
-            channel.QueueBind("", "newfan", "");
+            channel.QueueBind("ApiQueue", "newfan", "");
             rabbitclass messageReceiver = new rabbitclass(channel);
-            channel.BasicConsume(queue: "", autoAck: true, consumer: messageReceiver);
+            channel.BasicConsume(queue: "ApiQueue", autoAck: true, consumer: messageReceiver);
 
 
 
