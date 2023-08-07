@@ -20,6 +20,7 @@ using var channel = connection.CreateModel();
 
 
 channel.QueueDeclare("product",exclusive:false);
+channel.QueueBind("product", "amq.direct", "routkey");
 //Set Event object which listen message from chanel which is sent by producer
 var consumer = new EventingBasicConsumer(channel);
 consumer.Received += (model, eventArgs) =>

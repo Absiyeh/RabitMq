@@ -19,13 +19,12 @@ namespace RabitMqProductAPI.RabitMQ
 
             //Here we create channel with session and model
             using var channel = connection.CreateModel();
-
             channel.QueueDeclare("product", exclusive: false);
             //Serialize the message
             var json = JsonConvert.SerializeObject(message);
             var body = Encoding.UTF8.GetBytes(json);
             //put the data on to the product queue
-            channel.BasicPublish(exchange: "", routingKey: "product", body: body);
+            channel.BasicPublish(exchange: "amq.direct", routingKey: "routkey", body: body);
         }
     }
 }
