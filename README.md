@@ -6,7 +6,7 @@
 
 "*" means you must use one word
 
-"#" means you can you no word or many word
+"#" means you can use no word or many word
 
 
 sample: producer rout key is : aaa.bbb.ccc
